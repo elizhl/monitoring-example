@@ -1,0 +1,23 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+  external_labels:
+      monitor: 'prometheus-stack-monitor'
+
+scrape_configs:
+
+  - job_name: 'prometheus'
+    # bearer_token: if you have ACL enabled
+    tls_config: 
+      insecure_skip_verify: true
+    scheme: 'https'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+    metrics_path: '/v1/agent/metrics'
+    params:
+      format: ['prometheus']
+
+    static_configs:
+      - targets: ['dr.dev.consul.doudevops.com']
+
